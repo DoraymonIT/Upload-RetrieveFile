@@ -20,7 +20,7 @@
           <td>{{item.produit.qtte}}</td>
           <td>{{ item.produit.prix * item.produit.qtte | number }}</td>
           <td style="text-align: center;">
-            <button type="submit" class="btn btn-sm btn-secondary" (click)="goToDetallies(item.ref)" >
+            <button type="submit" class="btn btn-sm btn-secondary" (click)="goToDetallies(item.id)" >
               <i class="fas fa-info-circle"></i>
             </button>
           </td>

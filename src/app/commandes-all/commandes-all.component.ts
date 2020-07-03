@@ -24,7 +24,8 @@ export class CommandesAllComponent implements OnInit {
 this.commandes = cmds;
   }
   goToDetallies(id :number){
-
+// On passe le id  dyal la commande comme argument puis vous dirigez automatiquement
+// vers la page qui contient detailles sur cette commande
   }
 }
 
