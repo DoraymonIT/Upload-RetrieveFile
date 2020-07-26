@@ -1,26 +1,36 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand">
-    <img src="/assets/angular-icon.svg"  height="30px" >
-  </a>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav">
-      <li class="nav-item " [class.active]>
-        <a class="nav-link" [routerLink]="['AllCommandes']" routerLinkActive="router-link-active"  >All Commandes <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item" [class.active]>
-        <a class="nav-link" [routerLink]="['createCommande']" routerLinkActive="router-link-active"   href="">Create Commande</a>
-      </li>
-      <!-- <li class="nav-item">
-        <a class="nav-link" href="#">Profile</a>
-      </li> -->
-      <!-- <li class="nav-item">
-        <a class="nav-link " href="#">Autres</a>
-      </li> -->
-    </ul>
-  </div>
-  <div class="form-inline">
-  <a class="nav-link " [routerLink]="['profile']" routerLinkActive="router-link-active"  href="#"> <h6 class="login" >Welcome Ayoub</h6></a> 
-  </div>
-</nav>
 
-<router-outlet></router-outlet>
+<div class="container row">
+      <div class="col-md-12">
+          <h1>Upload Image</h1>
+      </div>
+  </div>
+  <div class="container row">
+      <div class="col-md-6">
+          <input type="file" (change)="onFileChanged($event)">
+      </div>
+      <div class="col-md-6">
+          <input type="button" (click)="onUpload()" value="upload">
+      </div>
+  </div>
+  <hr />
+  <div class="container row">
+      <div class="col-md-12">
+          <div *ngIf=message>{{message}}</div>
+      </div>
+  </div>
+  <div class="container row" style="padding:50px">
+      <div class="col-md-6">
+          <input type="text" class="form-control" id="name" placeholder="image name" [(ngModel)]="imageName"
+              name="name" />
+      </div>
+      <div class="col-md-6">
+          <input type="button" (click)="getImage()" value="Get Image">
+      </div>
+  </div>
+  <div class="container row">
+      <div class="col-md-12">
+          <div *ngIf=retrievedImage>
+              <img [src]="retrievedImage" width="500px">
+          </div>
+      </div>
+  </div>
