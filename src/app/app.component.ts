@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FileUploadService } from './controller/service/file-upload.service';
 import { FileUpload } from './controller/model/file-upload.model';
 import { HttpClient } from '@angular/common/http';
+import * as fileSaver from 'file-saver';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +11,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AppComponent implements OnInit {
  constructor(private uploadService : FileUploadService,private httpClient: HttpClient){}
-  ngOnInit(): void {  
+  ngOnInit(): void {
   }
   public get $fileUpload(): FileUpload {
 		return this.uploadService.$fileUpload;
@@ -49,17 +50,28 @@ const uploadImageData = new FormData();
       //Gets called when the user clicks on retieve image button to get the image from back end
       getImage() {
       //Make a call to Sprinf Boot to get the Image Bytes.
-      this.httpClient.get('http://localhost:8081/gestionDesEmployee-Api/TypeDocument/get/' + this.imageName)
+      this.httpClient.get('http://localhost:8081/gestionDesEmployee-Api/TypeDocument/resume/download/' + this.imageName)
         .subscribe(
           res => {
-            // console.log("data : ->"+ res.byteLength);
+
             this.retrieveResonse =  res;
             this.base64Data = this.retrieveResonse.data;
-            this.retrievedImage = 'data:'+this.retrieveResonse.contentType+';base64,' + this.base64Data;
-            // var file = new Blob([this.retrieveResonse.data], {type: this.retrieveResonse.contentType});
-            // var fileURL = URL.createObjectURL(file);
-            // window.open(fileURL);
+            // this.retrievedImage = 'data:'+this.retrieveResonse.contentType+';base64,' + this.base64Data;
+            let url = window.URL.createObjectURL(this.retrieveResonse.data);
+            let a = document.createElement('a');
+            document.body.appendChild(a);
+            a.setAttribute('style', 'display: none');
+            a.href = url;
+            a.download = this.retrieveResonse.libelle;
+            a.click();
+            window.URL.revokeObjectURL(url);
+            a.remove();
+
           }
         );
     }
+  // saveFile(data: any, filename?: string) {
+  //   const blob = new Blob([data], {type: 'application/pdf; charset=utf-8'});
+  //   fileSaver.saveAs(blob, filename);
+  // }
 }
